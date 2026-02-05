@@ -7,22 +7,25 @@
 using namespace std;
 
 struct Student {
- 
-    public: 
-        int final;
-        int midterm;
-        vector<int> hw_grades;
 
-    private: 
-        string name;
+    Student();
+    Student(string _name, int _final, int _number_of_homeworks);
+    Student(const Student & student);
+    ~Student();
 
-    public:
-        void setName(const std::string& _name); 
-        std::string getName() const;
+    string name;
+    int final;
+    int * hw_grades;
+    int number_of_homeworks;
+
+    string getName() const ;
+    void setName(string _name) ;
+    double getHomeworkAverage() const;
+
 };
 
 ostream & operator<<(ostream & os, const Student & student);
 
-Student get_data();
+Student get_student_struct_data(int numberOfHws);
 
 #endif

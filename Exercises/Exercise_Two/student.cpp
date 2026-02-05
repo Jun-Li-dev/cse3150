@@ -1,46 +1,90 @@
-#include "student.h"
 #include <iostream>
 
-void Student::setName(const std::string& _name) {
+#include "student.h"
+
+Student::Student() { 
+    hw_grades = nullptr;
+}
+
+Student::Student(string _name, int _final, int _number_of_homeworks) {
     name = _name;
+    final = _final;
+    number_of_homeworks = _number_of_homeworks;
+    hw_grades = new int[number_of_homeworks];
 }
 
-std::string Student::getName() const {
-    return name;
-}
-
-Student get_data() {
-    Student student;
-
-    std::string student_name;
-    std::cout << "Enter student name: " << std::endl;
-    std::cin >> student_name;
-    student.setName(student_name);
-
-    std::cout << "Enter midterm grade: " << std::endl;
-    std::cin >> student.midterm;
-
-    std::cout << "Enter finals grade: " << std::endl;
-    std::cin >> student.final;
-
-    std::cout << "Enter homework grades or hit Ctrl+D for exit (no score)" << std::endl;
-    int score;
-    while (std::cin >> score) {
-        student.hw_grades.push_back(score);
-        std::cout << "Enter another grade or hit Ctrl+D for exit" << std::endl;
+Student::Student(const Student & student) {
+    cout << "COPY CONSTRUCTOR Student" << endl;
+    name = student.name;
+    final = student.final;
+    number_of_homeworks = student.number_of_homeworks;
+    if (nullptr != student.hw_grades) {
+        hw_grades = new int[number_of_homeworks];
+        for (int j = 0; j < number_of_homeworks; j++) {
+            hw_grades[j] = student.hw_grades[j];
+        }
     }
-    std::cin.clear();
+}
+
+Student::~Student() {
+    cout << "DESTRUCTOR Student" << endl;
+    if (nullptr != hw_grades) {
+        delete [] hw_grades;
+    }
+}
+
+string Student::getName() const { return name; }
+void Student::setName(string _name) { name = _name; }
+
+Student get_student_struct_data(int total_homeworks) {
+
+    string name;
+    int final;
+
+    cout << "-----------------------------" << endl;
+    cout << "Enter name: " << endl;
+    cin >> name;
+
+    cout << "Enter final: " << endl;
+    cin >> final ;
+
+    Student student(name,final,total_homeworks);
+
+    cout << "Enter a homework score: " << endl;
+    int score;
+    for (int i = 0; i < student.number_of_homeworks; i++) {
+        cin >> score;
+        student.hw_grades[i] = score;
+        cout << "Enter another score: " << endl;
+    }
+
+    cout << "-----------------------------" << endl;
 
     return student;
 }
 
-std::ostream & operator<<(std::ostream & os, const Student & student) {
-    os << student.getName()
-       << " Midterm: " << student.midterm
-       << " Final: " << student.final
-       << " Homework scores: ";
-    for (auto score : student.hw_grades) {
-        os << score << " ";
+double Student::getHomeworkAverage() const {
+    if (number_of_homeworks == 0 || hw_grades == nullptr)
+        return 0.0;
+
+    int sum = 0;
+    for (int i = 0; i < number_of_homeworks; i++) {
+        sum += hw_grades[i];
     }
+
+    return static_cast<double>(sum) / number_of_homeworks;
+}
+
+ostream & operator<<(ostream & os, const Student & student) {
+    os << student.getName()
+       << " Final: " << student.final
+       << " homework scores: ";
+
+    for (int i = 0; i < student.number_of_homeworks; i++) {
+        os << student.hw_grades[i] << " ";
+    }
+
+    os << " homework average: " << student.getHomeworkAverage();
+
     return os;
 }
