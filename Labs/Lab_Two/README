@@ -1,0 +1,7 @@
+to complie just do 
+g++ random_test.cpp random.cpp -o tests for the tests
+
+and do
+g++ main.cpp random.cpp -o program for the regular program
+
+you can also just do ./program or ./tests for the already pre compiled files.
