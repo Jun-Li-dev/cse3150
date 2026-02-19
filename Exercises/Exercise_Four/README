@@ -1,0 +1,3 @@
+I have my doctest usually in another file so if you are running this
+replace #include "../include/doctest.h" with #include"doctest.h"
+other wise you should be able to just do g++ test.cpp python.cpp -o test and then run ./test to run the tests.
