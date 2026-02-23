@@ -1,0 +1,2 @@
+do g++ main.cpp list.cpp then ./a.out to test the code
+you can also just do ./a.out since there is already a compiled file 
