@@ -1,0 +1,5 @@
+do g++ test.cpp complex_array.cpp complex.cpp -o tests
+for tests files and 
+do g++ main.cpp complex_array.cpp complex.cpp -o program
+for regular program
+then just do ./tests or ./program to run them in terminal
