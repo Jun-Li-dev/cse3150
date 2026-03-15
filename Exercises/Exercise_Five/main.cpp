@@ -10,36 +10,41 @@ int main() {
     cout << "How many complex numbers? ";
     cin >> n;
 
-    ComplexArray arr(n);
+    ComplexArray ca0(n);
 
     for(int i = 0; i < n; i++) {
 
-        double r, im;
-
-        cout << "Enter real: ";
-        cin >> r;
-
-        cout << "Enter imag: ";
-        cin >> im;
-
-        arr[i].setReal(r);
-        arr[i].setImag(im);
+        ca0[i].setReal(i);
+        ca0[i].setImag(i * i);
     }
 
-    cout << "\nNumbers entered:\n";
+    cout << "\nca0 contents:\n";
 
-    for(int i = 0; i < n; i++) {
-        cout << arr[i] << endl;
-    }
+    for(int i = 0; i < ca0.getSize(); i++)
+        cout << ca0[i] << endl;
 
-    cout << "\nMoving array...\n";
+    cout << "\nMove constructor: ca2 = move(ca0)\n";
 
-    ComplexArray movedArray = std::move(arr);
+    ComplexArray ca2 = std::move(ca0);
 
-    cout << "Moved array contents:\n";
+    cout << "\nca2 contents:\n";
 
-    for(int i = 0; i < movedArray.getSize(); i++) {
-        cout << movedArray[i] << endl;
-    }
+    for(int i = 0; i < ca2.getSize(); i++)
+        cout << ca2[i] << endl;
+
+    cout << "\nca0 size after move: " << ca0.getSize() << endl;
+
+    cout << "\nMove assignment: ca3 = move(ca2)\n";
+
+    ComplexArray ca3(1);
+
+    ca3 = std::move(ca2);
+
+    cout << "\nca3 contents:\n";
+
+    for(int i = 0; i < ca3.getSize(); i++)
+        cout << ca3[i] << endl;
+
+    cout << "\nca2 size after move: " << ca2.getSize() << endl;
 
 }

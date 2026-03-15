@@ -17,6 +17,8 @@ public:
 
     ComplexArray(ComplexArray&& other);
 
+    ComplexArray& operator=(ComplexArray&& other);
+
     ~ComplexArray();
 
     int getSize() const;

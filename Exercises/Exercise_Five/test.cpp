@@ -1,44 +1,72 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
+
+#include "complex.h"
 #include "complex_array.h"
 
-TEST_CASE("Zero size array") {
+TEST_CASE("Complex setters and getters") {
 
-    ComplexArray arr(0);
+    Complex c;
 
-    CHECK(arr.getSize() == 0);
+    c.setReal(3);
+    c.setImag(4);
+
+    CHECK(c.getReal() == 3);
+    CHECK(c.getImag() == 4);
 }
 
-TEST_CASE("Single element array") {
+TEST_CASE("ComplexArray size works") {
 
-    ComplexArray arr(1);
+    ComplexArray arr(5);
 
-    arr[0].setReal(5);
-    arr[0].setImag(3);
-
-    CHECK(arr[0].getReal() == 5);
-    CHECK(arr[0].getImag() == 3);
+    CHECK(arr.getSize() == 5);
 }
 
-TEST_CASE("Move constructor transfers data") {
+TEST_CASE("ComplexArray indexing works") {
 
-    ComplexArray arr(2);
+    ComplexArray arr(3);
 
     arr[0].setReal(1);
-    arr[1].setReal(2);
+    arr[0].setImag(2);
 
-    ComplexArray moved(std::move(arr));
-
-    CHECK(moved.getSize() == 2);
-    CHECK(moved[0].getReal() == 1);
-    CHECK(moved[1].getReal() == 2);
+    CHECK(arr[0].getReal() == 1);
+    CHECK(arr[0].getImag() == 2);
 }
 
-TEST_CASE("Move empty array") {
+TEST_CASE("Move constructor transfers ownership") {
 
-    ComplexArray arr(0);
+    ComplexArray arr1(3);
 
-    ComplexArray moved(std::move(arr));
+    for(int i = 0; i < 3; i++) {
+        arr1[i].setReal(i);
+        arr1[i].setImag(i*i);
+    }
 
-    CHECK(moved.getSize() == 0);
+    ComplexArray arr2 = std::move(arr1);
+
+    CHECK(arr2.getSize() == 3);
+    CHECK(arr1.getSize() == 0);
+
+    CHECK(arr2[2].getReal() == 2);
+    CHECK(arr2[2].getImag() == 4);
+}
+
+TEST_CASE("Move assignment transfers ownership") {
+
+    ComplexArray arr1(4);
+
+    for(int i = 0; i < 4; i++) {
+        arr1[i].setReal(i);
+        arr1[i].setImag(i*i);
+    }
+
+    ComplexArray arr2(1);
+
+    arr2 = std::move(arr1);
+
+    CHECK(arr2.getSize() == 4);
+    CHECK(arr1.getSize() == 0);
+
+    CHECK(arr2[3].getReal() == 3);
+    CHECK(arr2[3].getImag() == 9);
 }
