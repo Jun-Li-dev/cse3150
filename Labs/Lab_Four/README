@@ -1,0 +1,8 @@
+for testing do g++ test.cpp -o test
+./test
+
+for regular main.cpp file useage do 
+g++ main.cpp -o main
+./main
+
+if you don't want to compile just do./main or ./test for already compiled files
