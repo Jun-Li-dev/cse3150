@@ -1,0 +1,15 @@
+do g++ -std=c++11 test.cpp -o test
+then do ./test for the test
+
+do g++ -std=c++11 main.cpp -o main
+
+then ./main to manually enter the vectors
+
+then you can type in something like 
+3
+2
+1 0
+0 1
+1 1
+
+and get some results
