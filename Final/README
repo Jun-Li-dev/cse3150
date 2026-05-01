@@ -1,0 +1,18 @@
+//////////////////To Run////////////////
+
+
+just copy and paste the following into terminal
+g++ main.cpp LinkedList.cpp Server.cpp Client.cpp -o program
+
+then to run just do 
+
+./program
+
+
+//////////////////To Test Stuff Paste the following//////////////////
+
+g++ test.cpp LinkedList.cpp Server.cpp Client.cpp -o test
+
+to run tests do
+
+./test
